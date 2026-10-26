@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F172A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Organizador">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+<title>Matheus — Organizador Pessoal</title>
+<style>
+:root{color-scheme:dark;--bg:#0F172A;--panel:#0B1020;--panel2:#111a30;--text:#F8FAFC;--muted:#9aa7bd;--line:#273149;--violet:#7C3AED;--lav:#A78BFA;--cyan:#106B87;--red:#A82743;--green:#35c49a;--radius:16px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#202044 0,transparent 36%),var(--bg);color:var(--text);font:15px/1.5 Inter,Manrope,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#151f36;color:var(--text);border-radius:10px;padding:9px 13px;transition:.18s}button:hover{border-color:var(--lav);transform:translateY(-1px)}button.primary{background:linear-gradient(120deg,#6d28d9,#7c3aed);border-color:#8b5cf6}button.danger{color:#ff9aaa;border-color:#633044}button.ghost{background:transparent}.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:24px 16px;background:#0b1020d9;display:flex;flex-direction:column;gap:26px}.brand{display:flex;gap:12px;align-items:center;padding:0 8px;font-size:18px;font-weight:750;letter-spacing:.3px}.avatar-profile{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb);display:grid;place-items:center;font-weight:800;font-size:13px;letter-spacing:1px;color:#fff;border:2px solid #a78bfa55;box-shadow:0 0 14px rgba(124,58,237,0.35);flex-shrink:0}.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;text-align:left;display:flex;align-items:center;gap:12px;padding:12px;color:var(--muted)}.nav button.active{background:#7c3aed26;color:#ddd0ff;border:1px solid #7c3aed50}.nav .ico{width:20px;text-align:center}.side-note{margin-top:auto;border:1px solid var(--line);border-radius:13px;padding:13px;color:var(--muted);font-size:12px}.main{padding:28px clamp(16px,3vw,42px);min-width:0;max-width:1600px;width:100%;margin:0 auto}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;color:var(--lav);font-weight:700}.page-title{font-size:clamp(25px,3vw,34px);letter-spacing:-.8px;margin:3px 0}.sub{color:var(--muted);margin:0}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.screen{display:none}.screen.active{display:block}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:22px}.card{background:linear-gradient(145deg,#111a30ed,#0b1020f2);border:1px solid var(--line);border-radius:var(--radius);padding:19px;min-width:0;box-shadow:0 12px 35px #00000012}.stat-label{font-size:13px;color:var(--muted)}.stat-value{font-size:32px;font-weight:750;margin:8px 0 2px;letter-spacing:-1px}.stat-foot{font-size:12px;color:var(--muted)}.two-col{grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.section-head h2,.section-head h3{margin:0;font-size:17px}.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}.list{display:grid;gap:9px}.item{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid #273149;border-radius:12px;background:#111a3075}.item-main{flex:1;min-width:0}.item-title{font-weight:650;overflow-wrap:anywhere}.item-title.done{text-decoration:line-through;color:#7f8ba0}.meta{font-size:12px;color:var(--muted);margin-top:4px}.item-actions{display:flex;gap:5px;flex-wrap:wrap}.item-actions button{padding:5px 8px;font-size:12px}.check{accent-color:var(--violet);width:17px;height:17px;margin-top:4px}.pill{display:inline-flex;border-radius:99px;padding:3px 8px;font-size:11px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}.pill.high{color:#ff9aaa;border-color:#77344a;background:#a827431c}.pill.medium{color:#f6cd82;border-color:#6e542b}.pill.low{color:#8fe0c5;border-color:#276553}.pill.overdue{color:#ff9aaa;border-color:#77344a}.pill.today{color:#c4b5fd;border-color:#6d48a8}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:17px}.field{background:#0b1020;border:1px solid var(--line);border-radius:10px;padding:10px 11px;color:var(--text);min-width:0;width:100%;outline:none}.field:focus{border-color:var(--lav);box-shadow:0 0 0 3px #7c3aed22}.search{max-width:310px;flex:1}.toolbar select{width:auto;min-width:130px}.empty{padding:28px 16px;text-align:center;color:var(--muted);border:1px dashed #35415a;border-radius:12px}.empty strong{display:block;color:#d7deeb;margin-bottom:4px}.calendar-card{padding:16px}.cal-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.cal-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.cal-title{font-weight:700;font-size:18px;min-width:170px}.segmented{display:flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}.segmented button{border:0;background:transparent;padding:6px 10px}.segmented button.active{background:#7c3aed55;color:#e9ddff}.month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}.weekday{padding:9px 5px;text-align:center;color:var(--muted);font-size:12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.day{min-height:115px;padding:7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0;cursor:pointer;background:#0b102055}.day:hover{background:#7c3aed16}.day.outside{opacity:.38}.day.today{box-shadow:inset 0 0 0 2px #8b5cf6}.day.selected{background:#7c3aed1d}.day-number{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:5px}.day-number .num{display:grid;place-items:center;width:25px;height:25px;border-radius:50%}.today .num{background:var(--violet)}.event-chip{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:5px;padding:3px 5px;margin:3px 0;font-size:11px;background:#106b8750;border-left:3px solid #38bdf8}.event-chip.holiday{background:#7c3aed25;border-left-color:#a78bfa}.event-chip.task{background:#35c49a1c;border-left-color:#35c49a}.week-grid{display:grid;grid-template-columns:55px repeat(7,minmax(100px,1fr));overflow:auto;border:1px solid var(--line);border-radius:10px}.week-head{position:sticky;top:0;background:#111a30;padding:9px 5px;text-align:center;border-bottom:1px solid var(--line);font-size:12px}.time-label{height:58px;border-bottom:1px solid #273149;padding:5px;font-size:11px;color:var(--muted)}.week-cell{height:58px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;cursor:pointer}.week-cell:hover{background:#7c3aed18}.week-event{position:absolute;left:3px;right:3px;top:3px;padding:3px 5px;border-radius:5px;background:#106b87b8;font-size:10px;overflow:hidden;z-index:1;max-height:50px}.selected-date{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:16px;background:#111a3070}.selected-date h3{margin:0 0 10px;font-size:15px}.progress{height:7px;background:#273149;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{height:100%;display:block;background:linear-gradient(90deg,#7c3aed,#38bdf8);border-radius:99px}.quick-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:13px}.modal-backdrop{position:fixed;inset:0;background:#030712c9;display:none;align-items:center;justify-content:center;padding:18px;z-index:20;backdrop-filter:blur(7px)}.modal-backdrop.open{display:flex}.modal{width:min(600px,100%);max-height:90vh;overflow:auto;background:#0b1020;border:1px solid #3a4560;border-radius:18px;padding:22px;box-shadow:0 30px 90px #0008}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.modal-head h2{margin:0;font-size:21px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-row{display:grid;gap:6px}.form-row.full{grid-column:1/-1}.form-row label{font-size:12px;color:#b8c2d5}.form-row textarea{min-height:85px;resize:vertical}.modal-actions{display:flex;justify-content:space-between;gap:8px;margin-top:20px;flex-wrap:wrap}.modal-actions-right{display:flex;gap:8px;margin-left:auto}.toast{position:fixed;right:20px;bottom:20px;background:#17243a;border:1px solid #43516b;border-radius:12px;padding:12px 16px;z-index:40;display:none;max-width:min(380px,calc(100vw - 40px));box-shadow:0 10px 30px #0006}.toast.show{display:block;animation:slide .2s ease}@keyframes slide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.muted{color:var(--muted)}.divider{height:1px;background:var(--line);margin:16px 0}.day-list{display:grid;gap:7px}.holiday-note{font-size:12px;color:var(--lav);margin-top:12px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two-col{grid-template-columns:1fr}.day{min-height:95px}.event-chip{font-size:10px}}
+@media(max-width:700px){.app{grid-template-columns:1fr}.sidebar{padding:10px 12px;border-right:0;border-bottom:1px solid var(--line);gap:10px}.brand{padding:2px 4px}.nav{grid-template-columns:repeat(3,1fr);gap:4px}.nav button{justify-content:center;padding:9px 5px;font-size:12px;gap:6px}.nav .ico{width:auto}.side-note{display:none}.main{padding:20px 12px}.topbar{align-items:flex-start;flex-direction:column;margin-bottom:20px}.top-actions{width:100%}.top-actions button{flex:1}.stats{gap:9px}.card{padding:14px}.stat-value{font-size:27px}.month-grid{font-size:11px}.day{min-height:72px;padding:4px 2px}.weekday{padding:7px 1px;font-size:10px}.day-number .num{width:22px;height:22px}.event-chip{padding:2px 3px;font-size:9px}.form-grid{grid-template-columns:1fr}.form-row.full{grid-column:auto}.cal-title{font-size:15px;min-width:0}.cal-toolbar{align-items:flex-start}.toolbar .search{max-width:none;flex-basis:100%}.toolbar select{flex:1}.item{gap:8px}.item-actions{width:100%}.item{flex-wrap:wrap}.item-main{min-width:calc(100% - 40px)}.item-actions{padding-left:28px}}
+@media(max-width:400px){.stats{grid-template-columns:1fr 1fr}.day{min-height:62px}.event-chip{font-size:8px}.nav button{font-size:11px}}
+
+/* Ajustes de usabilidade mobile */
+@media(max-width:700px){
+  html,body{width:100%;overflow-x:hidden}
+  body{font-size:15px;padding-bottom:env(safe-area-inset-bottom)}
+  .app{display:flex;flex-direction:column;min-height:100dvh}
+  .sidebar{
+    position:sticky;top:0;z-index:10;
+    padding:10px 12px calc(8px + env(safe-area-inset-top));
+    background:#0b1020f5;backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);border-right:0;gap:9px
+  }
+  .brand{font-size:16px;gap:9px;padding:0 2px}
+  .avatar-profile{width:34px;height:34px}
+  .nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .nav button{
+    min-height:42px;justify-content:center;padding:8px 4px;font-size:12px;
+    gap:5px;border-radius:10px;white-space:nowrap
+  }
+  .nav .ico{font-size:15px}
+  .main{padding:16px 12px 28px;width:100%;max-width:none}
+  .topbar{gap:14px;margin-bottom:16px}
+  .page-title{font-size:26px;line-height:1.2}
+  .sub{font-size:13px}
+  .top-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+  .top-actions button{min-height:44px;padding:10px 8px;font-size:13px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:12px}
+  .card{padding:13px;border-radius:14px}
+  .stat-label{font-size:12px;line-height:1.35}
+  .stat-value{font-size:27px;margin:6px 0 1px}
+  .stat-foot{font-size:11px}
+  .two-col{grid-template-columns:minmax(0,1fr);gap:12px}
+  .section-head{align-items:flex-start;gap:8px}
+  .section-head h2,.section-head h3{font-size:16px}
+  .section-head p{font-size:12px}
+  .section-head>button{flex-shrink:0;font-size:12px;padding:8px}
+  .quick-form{grid-template-columns:minmax(0,1fr) auto;gap:7px}
+  .quick-form button{padding:9px 10px}
+  .field{font-size:16px;min-height:43px}
+  .toolbar{gap:7px}
+  .toolbar .search{flex:1 1 100%;max-width:none}
+  .toolbar select{flex:1 1 calc(50% - 7px);min-width:0;width:100%;font-size:14px}
+  #taskDetailsBtn{width:100%;min-height:42px}
+  .item{gap:9px;padding:11px;flex-wrap:wrap}
+  .item-main{flex:1 1 calc(100% - 34px);min-width:0}
+  .item-actions{width:100%;padding-left:27px}
+  .item-actions button{min-height:36px;padding:7px 12px;font-size:13px}
+  .calendar-card{padding:10px}
+  .cal-toolbar{gap:10px;margin-bottom:12px}
+  .cal-controls{gap:5px}
+  .cal-controls button{min-height:38px;padding:7px 9px}
+  .cal-title{font-size:14px;min-width:0}
+  .segmented button{min-height:32px;padding:5px 8px}
+  .month-grid{grid-template-columns:repeat(7,minmax(0,1fr));width:100%}
+  .weekday{padding:7px 0;font-size:10px;overflow:hidden}
+  .day{min-height:clamp(54px,13vw,76px);padding:4px 2px;overflow:hidden}
+  .day-number{margin-bottom:2px;font-size:11px}
+  .day-number .num{width:21px;height:21px}
+  .event-chip{font-size:8px;line-height:1.2;padding:2px;margin:2px 0;border-left-width:2px}
+  .day .muted{font-size:9px!important}
+  .holiday-note{font-size:11px;line-height:1.4}
+  .selected-date{padding:11px;margin-top:12px}
+  .week-grid{grid-template-columns:42px repeat(7,minmax(68px,1fr));overflow:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  .week-head{font-size:11px;padding:8px 3px}
+  .modal-backdrop{padding:0;align-items:flex-end}
+  .modal{
+    width:100%;max-width:none;max-height:92dvh;overflow-y:auto;
+    border-radius:18px 18px 0 0;padding:18px 15px calc(18px + env(safe-area-inset-bottom));
+    border-bottom:0
+  }
+  .modal-head h2{font-size:19px}
+  .form-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .form-row.full{grid-column:auto}
+  .form-row label{font-size:13px}
+  .form-row textarea{min-height:78px}
+  .modal-actions{position:sticky;bottom:-18px;background:#0b1020;padding:12px 0 3px;gap:8px}
+  .modal-actions-right{gap:7px}
+  .modal-actions button{min-height:42px}
+  .toast{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));max-width:calc(100vw - 24px)}
+  button{touch-action:manipulation}
+}
+@media(max-width:380px){
+  .main{padding-left:9px;padding-right:9px}
+  .nav button{font-size:11px;gap:3px}
+  .top-actions button{font-size:12px}
+  .stats{gap:7px}
+  .card{padding:10px}
+  .cal-controls{gap:3px}
+  .cal-controls button{padding:6px 7px}
+  .cal-title{font-size:12px}
+  .event-chip{font-size:7px}
+}
+@media(min-width:701px) and (max-width:1000px){
+  .main{padding:24px 20px}
+  .two-col{grid-template-columns:minmax(0,1fr)}
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">
+    <div class="avatar-profile" title="Matheus">MT</div>
+    <div>Matheus <span class="muted" style="font-weight:400;font-size:13px">/ tarefas</span></div>
+  </div>
+  <nav class="nav" aria-label="Navegação principal">
+    <button class="active" data-screen="overview"><span class="ico">◈</span> Visão geral</button>
+    <button data-screen="tasks"><span class="ico">☑</span> Lembretes</button>
+    <button data-screen="calendar"><span class="ico">▦</span> Calendário</button>
+  </nav>
+  <div class="side-note">
+    <div class="eyebrow">Espaço do Matheus</div>
+    <p style="margin:7px 0 0">Seus dados e anotações ficam salvos localmente neste navegador.</p>
+  </div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div>
+      <div class="eyebrow" id="pageEyebrow">PAINEL PESSOAL</div>
+      <h1 class="page-title" id="pageTitle">Visão geral</h1>
+      <p class="sub" id="pageSub">Olá Matheus, aqui está o que importa para hoje.</p>
+    </div>
+    <div class="top-actions">
+      <button id="quickTaskBtn" class="primary">＋ Nova tarefa</button>
+      <button id="quickEventBtn">＋ Novo evento</button>
+    </div>
+  </header>
+  <section id="overview" class="screen active">
+    <div class="grid stats">
+      <div class="card"><div class="stat-label">Tarefas pendentes</div><div class="stat-value" id="statPending">0</div><div class="stat-foot">Aguardando conclusão</div></div>
+      <div class="card"><div class="stat-label">Concluídas</div><div class="stat-value" id="statDone">0</div><div class="stat-foot">Tarefas finalizadas</div></div>
+      <div class="card"><div class="stat-label">Atrasadas</div><div class="stat-value" id="statOverdue">0</div><div class="stat-foot">Precisam de atenção</div></div>
+      <div class="card"><div class="stat-label">Eventos hoje</div><div class="stat-value" id="statEvents">0</div><div class="stat-foot">Compromissos no calendário</div></div>
+    </div>
+    <div class="grid two-col">
+      <div class="card"><div class="section-head"><div><h2>Prioridades próximas</h2><p>Suas tarefas pendentes mais próximas.</p></div><button class="ghost" data-goto="tasks">Ver todas ↗</button></div><div id="overviewTasks" class="list"></div><div class="divider"></div><div class="section-head"><div><h3>Progresso de hoje</h3><p id="progressText">0 de 0 tarefas concluídas</p></div><strong id="progressPct">0%</strong></div><div class="progress"><span id="progressBar" style="width:0%"></span></div></div>
+      <div class="card"><div class="section-head"><div><h2>Agenda de hoje</h2><p id="todayLabel"></p></div><button class="ghost" data-goto="calendar">Abrir calendário ↗</button></div><div id="overviewEvents" class="list"></div><div class="divider"></div><div class="section-head"><div><h3>Próximos eventos</h3><p>Compromissos futuros.</p></div></div><div id="upcomingEvents" class="list"></div></div>
+    </div>
+  </section>
+  <section id="tasks" class="screen">
+    <div class="card">
+      <div class="section-head"><div><h2>Seus lembretes</h2><p>Organize tarefas, prazos e prioridades.</p></div><span class="pill" id="taskCount">0 tarefas</span></div>
+      <form id="quickTaskForm" class="quick-form"><input id="quickTaskTitle" class="field" placeholder="O que você precisa fazer, Matheus?" aria-label="Título da nova tarefa" required><button class="primary" type="submit">Adicionar</button></form>
+      <div class="toolbar"><input id="taskSearch" class="field search" placeholder="⌕ Pesquisar tarefas..." aria-label="Pesquisar tarefas"><select id="taskFilter" class="field" aria-label="Filtrar tarefas"><option value="all">Todas as tarefas</option><option value="pending">Pendentes</option><option value="done">Concluídas</option><option value="overdue">Atrasadas</option></select><select id="taskSort" class="field" aria-label="Ordenar tarefas"><option value="date">Ordenar por data</option><option value="priority">Ordenar por prioridade</option><option value="created">Mais recentes</option></select><button id="taskDetailsBtn">＋ Detalhes</button></div>
+      <div id="taskList" class="list"></div>
+    </div>
+  </section>
+  <section id="calendar" class="screen">
+    <div class="card calendar-card">
+      <div class="cal-toolbar"><div class="cal-controls"><button id="prevPeriod" aria-label="Período anterior">←</button><button id="todayBtn">Hoje</button><button id="nextPeriod" aria-label="Próximo período">→</button><div class="cal-title" id="calendarTitle"></div></div><div class="cal-controls"><div class="segmented"><button class="active" data-view="month">Mês</button><button data-view="week">Semana</button></div><button class="primary" id="addEventBtn">＋ Evento</button></div></div>
+      <div id="calendarContent"></div>
+      <div class="holiday-note">Feriados nacionais são identificados em violeta. Eventos pessoais e tarefas usam cores distintas.</div>
+    </div>
+    <div class="selected-date"><h3 id="selectedDateTitle">Compromissos selecionados</h3><div id="selectedDateContent" class="day-list"></div></div>
+  </section>
+</main>
+</div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Nova tarefa</h2><button type="button" id="closeModal" aria-label="Fechar">✕</button></div><form id="editorForm"><div id="editorFields" class="form-grid"></div><div class="modal-actions"><button type="button" id="deleteRecord" class="danger" style="display:none">Excluir</button><div class="modal-actions-right"><button type="button" id="cancelModal">Cancelar</button><button type="submit" class="primary">Salvar</button></div></div></form></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const STORAGE_KEY = 'matheus-organizer-v1';
+const todayISO = () => { const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+const pad = n => String(n).padStart(2,'0');
+const localISO = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseLocal = (date,time='00:00') => { if(!date)return null; const [y,m,d]=date.split('-').map(Number);const [h,mi]=time.split(':').map(Number);return new Date(y,m-1,d,h||0,mi||0,0,0); };
+const fmtDate = (s,opts={day:'2-digit',month:'short',year:'numeric'}) => {if(!s)return 'Sem data';const d=parseLocal(s);return d.toLocaleDateString('pt-BR',opts);};
+const escapeHTML = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => (crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+const priorityRank={high:0,medium:1,low:2};
+
+let data = loadData(), screen='overview', view='month', cursor=new Date(), selectedDate=todayISO(), editing=null, toastTimer;
+
+function loadData(){
+  try{
+    // Tenta carregar do novo storage ou migrar do anterior caso exista
+    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('nexus-organizer-v1');
+    const x = JSON.parse(raw);
+    return {tasks:Array.isArray(x?.tasks)?x.tasks:[],events:Array.isArray(x?.events)?x.events:[]};
+  }catch{
+    return {tasks:[],events:[]};
+  }
+}
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){notify('Não foi possível salvar no navegador.');}}
+function notify(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
+function isOverdue(t){return !t.done&&t.date&&parseLocal(t.date,t.time||'23:59')<new Date();}
+function isToday(s){return s===todayISO();}
+function taskStatus(t){if(t.done)return '<span class="pill">Concluída</span>';if(isOverdue(t))return '<span class="pill overdue">Atrasada</span>';if(t.date===todayISO())return '<span class="pill today">Hoje</span>';return '';}
+function taskMeta(t){const bits=[];if(t.date)bits.push(fmtDate(t.date,{day:'2-digit',month:'short'}));if(t.time)bits.push(t.time);if(t.priority)bits.push(({high:'Prioridade alta',medium:'Prioridade média',low:'Prioridade baixa'})[t.priority]);return bits.join(' · ')||'Sem prazo definido';}
+function eventStart(e){return parseLocal(e.startDate,e.allDay?'00:00':e.startTime||'00:00');}
+function eventEnd(e){return parseLocal(e.endDate||e.startDate,e.allDay?'23:59':e.endTime||e.startTime||'00:00');}
+function eventTouchesDate(e,date){const d=parseLocal(date);d.setHours(0,0,0,0);const end=new Date(d);end.setHours(23,59,59,999);return eventStart(e)<=end&&eventEnd(e)>=d;}
+function eventOnDate(e,date){return eventTouchesDate(e,date);}
+
+function holidayMap(year){
+ const map={};
+ const add=(date,name)=>map[date]=name;
+ [['01-01','Confraternização Universal'],['04-21','Tiradentes'],['05-01','Dia do Trabalho'],['09-07','Independência do Brasil'],['10-12','Nossa Senhora Aparecida'],['11-02','Finados'],['11-15','Proclamação da República'],['11-20','Dia Nacional de Zumbi e da Consciência Negra'],['12-25','Natal']].forEach(([md,n])=>add(`${year}-${md}`,n));
+ const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
+ const month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
+ const easter=new Date(year,month-1,day);
+ const shift=(n)=>{const x=new Date(easter);x.setDate(x.getDate()+n);return localISO(x);};
+ add(shift(-2),'Sexta-feira Santa'); add(shift(60),'Corpus Christi');
+ add(shift(-48),'Carnaval (data comemorativa)');
+ return map;
+}
+function allHolidays(year){return holidayMap(year);}
+
+function saveTask(task){const i=data.tasks.findIndex(x=>x.id===task.id);if(i>=0)data.tasks[i]=task;else data.tasks.push(task);persist();renderAll();notify(i>=0?'Tarefa atualizada.':'Tarefa criada.');}
+function saveEvent(ev){const i=data.events.findIndex(x=>x.id===ev.id);if(i>=0)data.events[i]=ev;else data.events.push(ev);persist();renderAll();notify(i>=0?'Evento atualizado.':'Evento criado.');}
+function deleteCurrent(){if(!editing)return;const type=editing.type,id=editing.id;if(type==='task')data.tasks=data.tasks.filter(x=>x.id!==id);else data.events=data.events.filter(x=>x.id!==id);persist();closeModal();renderAll();notify('Item excluído.');}
+
+function switchScreen(next){
+  screen=next;
+  $$('.screen').forEach(el=>el.classList.toggle('active',el.id===next));
+  $$('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===next));
+  const info={
+    overview:['PAINEL PESSOAL','Visão geral','Olá Matheus, aqui está o que importa para hoje.'],
+    tasks:['GESTÃO DE TAREFAS','Lembretes','Transforme intenções em próximos passos.'],
+    calendar:['AGENDA E COMPROMISSOS','Calendário','Veja seus dias, semanas e eventos organizados.']
+  }[next];
+  $('#pageEyebrow').textContent=info[0];
+  $('#pageTitle').textContent=info[1];
+  $('#pageSub').textContent=info[2];
+  renderAll();
+}
+
+function taskCard(t,compact=false){
+  return `<div class="item"><input class="check" type="checkbox" aria-label="Concluir tarefa" data-check-task="${escapeHTML(t.id)}" ${t.done?'checked':''}><div class="item-main"><div class="item-title ${t.done?'done':''}">${escapeHTML(t.title)}</div>${t.description&&!compact?`<div class="meta">${escapeHTML(t.description)}</div>`:''}<div class="meta">${escapeHTML(taskMeta(t))}</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">${taskStatus(t)}<span class="pill ${t.priority}">${({high:'Alta',medium:'Média',low:'Baixa'})[t.priority]||'Média'}</span></div></div><div class="item-actions"><button data-edit-task="${escapeHTML(t.id)}">Editar</button></div></div>`;
+}
+
+function eventCard(e,compact=false){
+  return `<div class="item"><div style="width:4px;align-self:stretch;border-radius:5px;background:${escapeHTML(e.color||'#106B87')}"></div><div class="item-main"><div class="item-title">${escapeHTML(e.title)}</div>${e.description&&!compact?`<div class="meta">${escapeHTML(e.description)}</div>`:''}<div class="meta">${escapeHTML(fmtDate(e.startDate,{day:'2-digit',month:'short'}))}${e.allDay?' · Dia inteiro':` · ${escapeHTML(e.startTime||'00:00')}${e.endTime?'–'+escapeHTML(e.endTime):''}`}</div><div style="margin-top:6px"><span class="pill">${escapeHTML(e.category||'Pessoal')}</span></div></div><div class="item-actions"><button data-edit-event="${escapeHTML(e.id)}">Editar</button></div></div>`;
+}
+
+function empty(msg,detail='Adicione um item para começar.'){
+  return `<div class="empty"><strong>${escapeHTML(msg)}</strong>${escapeHTML(detail)}</div>`;
+}
+
+function renderOverview(){
+ const pending=data.tasks.filter(t=>!t.done),done=data.tasks.filter(t=>t.done),overdue=pending.filter(isOverdue),todayEvents=data.events.filter(e=>eventOnDate(e,todayISO())).sort((a,b)=>eventStart(a)-eventStart(b));
+ $('#statPending').textContent=pending.length;$('#statDone').textContent=done.length;$('#statOverdue').textContent=overdue.length;$('#statEvents').textContent=todayEvents.length;
+ const tasks=pending.slice().sort((a,b)=>{const da=a.date?parseLocal(a.date,a.time||'23:59').getTime():Infinity,db=b.date?parseLocal(b.date,b.time||'23:59').getTime():Infinity;return da-db;}).slice(0,5);
+ $('#overviewTasks').innerHTML=tasks.length?tasks.map(t=>taskCard(t,true)).join(''):empty('Tudo em dia, Matheus!','Nenhuma tarefa pendente no momento.');
+ const todayTasks=data.tasks.filter(t=>t.date===todayISO()),completedToday=todayTasks.filter(t=>t.done).length,pct=todayTasks.length?Math.round(completedToday/todayTasks.length*100):0;
+ $('#progressText').textContent=`${completedToday} de ${todayTasks.length} tarefas de hoje concluídas`;$('#progressPct').textContent=pct+'%';$('#progressBar').style.width=pct+'%';
+ $('#todayLabel').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+ $('#overviewEvents').innerHTML=todayEvents.length?todayEvents.slice(0,4).map(e=>eventCard(e,true)).join(''):empty('Agenda livre hoje','Nenhum evento agendado para o dia.');
+ const upcoming=data.events.filter(e=>eventStart(e)>=parseLocal(todayISO())).sort((a,b)=>eventStart(a)-eventStart(b)).slice(0,4);
+ $('#upcomingEvents').innerHTML=upcoming.length?upcoming.map(e=>eventCard(e,true)).join(''):empty('Sem próximos eventos','Seus compromissos futuros aparecerão aqui.');
+}
+
+function renderTasks(){
+ const q=$('#taskSearch').value.trim().toLocaleLowerCase('pt-BR'),filter=$('#taskFilter').value,sort=$('#taskSort').value;
+ let arr=data.tasks.filter(t=>`${t.title} ${t.description||''}`.toLocaleLowerCase('pt-BR').includes(q));
+ if(filter==='pending')arr=arr.filter(t=>!t.done);if(filter==='done')arr=arr.filter(t=>t.done);if(filter==='overdue')arr=arr.filter(isOverdue);
+ if(sort==='priority')arr.sort((a,b)=>(priorityRank[a.priority]??1)-(priorityRank[b.priority]??1));else if(sort==='created')arr.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));else arr.sort((a,b)=>{const da=a.date?parseLocal(a.date,a.time||'23:59').getTime():Infinity,db=b.date?parseLocal(b.date,b.time||'23:59').getTime():Infinity;return da-db;});
+ $('#taskCount').textContent=`${arr.length} ${arr.length===1?'tarefa':'tarefas'}`;
+ $('#taskList').innerHTML=arr.length?arr.map(t=>taskCard(t)).join(''):empty('Nenhuma tarefa encontrada',q?'Tente outro termo de busca.':'Adicione uma tarefa no campo acima.');
+}
+
+function sameMonth(a,b){return a.getMonth()===b.getMonth()&&a.getFullYear()===b.getFullYear();}
+
+function renderCalendar(){
+ const y=cursor.getFullYear(),m=cursor.getMonth();
+ if(view==='month')$('#calendarTitle').textContent=cursor.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).replace(/^./,s=>s.toUpperCase());
+ else {const start=new Date(cursor);start.setDate(start.getDate()-((start.getDay()+6)%7));const end=new Date(start);end.setDate(start.getDate()+6);$('#calendarTitle').textContent=`${fmtDate(localISO(start),{day:'2-digit',month:'short'})} – ${fmtDate(localISO(end),{day:'2-digit',month:'short',year:'numeric'})}`;}
+ $$('.segmented button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+ if(view==='month'){
+  const first=new Date(y,m,1),start=new Date(first);start.setDate(1-((first.getDay()+6)%7));let html='<div class="month-grid">'+['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].map(x=>`<div class="weekday">${x}</div>`).join('');
+  for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const iso=localISO(d),hol=allHolidays(d.getFullYear())[iso],evs=data.events.filter(e=>eventOnDate(e,iso)),tasks=data.tasks.filter(t=>t.date===iso&&!t.done);html+=`<div class="day ${sameMonth(d,first)?'':'outside'} ${iso===todayISO()?'today':''} ${iso===selectedDate?'selected':''}" data-select-date="${iso}" tabindex="0" role="button" aria-label="${fmtDate(iso)}"><div class="day-number"><span class="num">${d.getDate()}</span>${hol?'<span title="Feriado/data comemorativa">✦</span>':''}</div>${hol?`<span class="event-chip holiday" title="${escapeHTML(hol)}">${escapeHTML(hol)}</span>`:''}${evs.slice(0,2).map(e=>`<span class="event-chip" style="border-left-color:${escapeHTML(e.color||'#38bdf8')}" title="${escapeHTML(e.title)}">${escapeHTML(e.allDay?'':(e.startTime||'')+' ')}${escapeHTML(e.title)}</span>`).join('')}${tasks.slice(0,1).map(t=>`<span class="event-chip task" title="${escapeHTML(t.title)}">${escapeHTML(t.title)}</span>`).join('')}${evs.length+tasks.length>3?`<span class="muted" style="font-size:10px">+${evs.length+tasks.length-3} itens</span>`:''}</div>`;}
+  $('#calendarContent').innerHTML=html+'</div>';
+ } else {
+  const start=new Date(cursor);start.setDate(start.getDate()-((start.getDay()+6)%7));const days=Array.from({length:7},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d;});
+  let html='<div class="week-grid"><div class="week-head">Hora</div>'+days.map(d=>`<div class="week-head" style="${localISO(d)===todayISO()?'color:#c4b5fd':''}">${d.toLocaleDateString('pt-BR',{weekday:'short'})}<br><strong>${d.getDate()}</strong></div>`).join('');
+  for(let h=0;h<24;h++){html+=`<div class="time-label">${pad(h)}:00</div>`;for(const d of days){const iso=localISO(d),evs=data.events.filter(e=>eventOnDate(e,iso)&&!e.allDay&&Number((e.startTime||'00:00').slice(0,2))===h);html+=`<div class="week-cell" data-week-slot="${iso}|${pad(h)}:00" title="Criar evento às ${pad(h)}:00">${evs.map(e=>`<div class="week-event" data-edit-event="${escapeHTML(e.id)}" style="border-left:2px solid ${escapeHTML(e.color||'#38bdf8')}">${escapeHTML(e.title)}<br>${escapeHTML(e.startTime||'')}</div>`).join('')}</div>`;}}
+  html+='</div>';$('#calendarContent').innerHTML=html;
+ }
+ renderSelectedDate();
+}
+
+function renderSelectedDate(){
+ $('#selectedDateTitle').textContent=fmtDate(selectedDate,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ const holiday=allHolidays(Number(selectedDate.slice(0,4)))[selectedDate],evs=data.events.filter(e=>eventOnDate(e,selectedDate)).sort((a,b)=>eventStart(a)-eventStart(b)),tasks=data.tasks.filter(t=>t.date===selectedDate);
+ let html=holiday?`<div class="item"><span class="pill today">Data comemorativa</span><div class="item-main"><strong>${escapeHTML(holiday)}</strong><div class="meta">Calendário nacional / data observada</div></div></div>`:'';
+ html+=evs.map(e=>eventCard(e)).join('');html+=tasks.map(t=>taskCard(t,true)).join('');
+ $('#selectedDateContent').innerHTML=html||empty('Nenhum compromisso nesta data','Clique em “＋ Evento” para adicionar algo neste dia.');
+}
+
+function field(name,label,type='text',value='',opts={}){return `<div class="form-row ${opts.full?'full':''}"><label for="f_${name}">${label}</label>${type==='textarea'?`<textarea class="field" id="f_${name}" name="${name}" placeholder="${opts.placeholder||''}">${escapeHTML(value)}</textarea>`:type==='select'?`<select class="field" id="f_${name}" name="${name}">${opts.options.map(o=>`<option value="${o.value}" ${value===o.value?'selected':''}>${o.label}</option>`).join('')}</select>`:`<input class="field" id="f_${name}" name="${name}" type="${type}" value="${escapeHTML(value)}" ${opts.required?'required':''} ${opts.min?`min="${opts.min}"`:''} ${opts.max?`max="${opts.max}"`:''} ${opts.step?`step="${opts.step}"`:''} placeholder="${opts.placeholder||''}">`}</div>`;}
+
+function openTaskEditor(task=null,quickTitle=''){
+ editing={type:'task',id:task?.id||null};$('#modalTitle').textContent=task?'Editar tarefa':'Nova tarefa';$('#deleteRecord').style.display=task?'inline-block':'none';
+ const t=task||{title:quickTitle,description:'',date:'',time:'',priority:'medium',done:false};
+ $('#editorFields').innerHTML=field('title','Título da tarefa','text',t.title,{required:true,full:true,placeholder:'Ex.: Finalizar projeto'})+field('description','Detalhes / observações','textarea',t.description,{full:true,placeholder:'Informações adicionais (opcional)'})+field('date','Data','date',t.date)+field('time','Horário','time',t.time)+field('priority','Prioridade','select',t.priority||'medium',{options:[{value:'low',label:'Baixa'},{value:'medium',label:'Média'},{value:'high',label:'Alta'}]})+field('done','Status','select',t.done?'done':'pending',{options:[{value:'pending',label:'Pendente'},{value:'done',label:'Concluída'}]});
+ openModal();
+}
+
+function openEventEditor(ev=null,date=selectedDate,time=''){
+ editing={type:'event',id:ev?.id||null};$('#modalTitle').textContent=ev?'Editar evento':'Novo evento';$('#deleteRecord').style.display=ev?'inline-block':'none';
+ const e=ev||{title:'',description:'',startDate:date,endDate:date,startTime:time||'09:00',endTime:time?`${pad((Number(time.slice(0,2))+1)%24)}:00`:'10:00',category:'Pessoal',color:'#106B87',allDay:false};
+ $('#editorFields').innerHTML=field('title','Título do evento','text',e.title,{required:true,full:true,placeholder:'Ex.: Reunião importante'})+field('description','Descrição / observações','textarea',e.description,{full:true})+field('startDate','Data de início','date',e.startDate,{required:true})+field('startTime','Horário de início','time',e.startTime)+field('endDate','Data de término','date',e.endDate||e.startDate,{required:true})+field('endTime','Horário de término','time',e.endTime)+field('category','Categoria','select',e.category||'Pessoal',{options:[{value:'Pessoal',label:'Pessoal'},{value:'Trabalho',label:'Trabalho'},{value:'Saúde',label:'Saúde'},{value:'Estudo',label:'Estudo'},{value:'Família',label:'Família'},{value:'Outro',label:'Outro'}]})+field('color','Cor de identificação','color',e.color||'#106B87')+`<div class="form-row full"><label><input id="f_allDay" type="checkbox" ${e.allDay?'checked':''} style="accent-color:#7c3aed;margin-right:8px">Evento para o dia inteiro</label></div>`;
+ openModal();toggleAllDay();
+}
+
+function openModal(){$('#modalBackdrop').classList.add('open');const first=$('#editorFields input:not([type=color]),#editorFields textarea');if(first)first.focus();}
+function closeModal(){$('#modalBackdrop').classList.remove('open');editing=null;}
+function toggleAllDay(){const checked=$('#f_allDay')?.checked;if(!$('#f_startTime'))return;$('#f_startTime').disabled=checked;$('#f_endTime').disabled=checked;$('#f_startTime').style.opacity=checked?.45:1;$('#f_endTime').style.opacity=checked?.45:1;}
+
+function renderAll(){renderOverview();renderTasks();renderCalendar();}
+
+$$('.nav button').forEach(b=>b.addEventListener('click',()=>switchScreen(b.dataset.screen)));
+$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>switchScreen(b.dataset.goto)));
+$('#quickTaskBtn').addEventListener('click',()=>openTaskEditor());
+$('#quickEventBtn').addEventListener('click',()=>{switchScreen('calendar');openEventEditor(null,selectedDate);});
+$('#quickTaskForm').addEventListener('submit',e=>{e.preventDefault();const title=$('#quickTaskTitle').value.trim();if(!title)return;saveTask({id:uid(),title,description:'',date:'',time:'',priority:'medium',done:false,createdAt:Date.now()});$('#quickTaskTitle').value='';});
+$('#taskDetailsBtn').addEventListener('click',()=>openTaskEditor(null,$('#quickTaskTitle').value.trim()));
+$('#taskSearch').addEventListener('input',renderTasks);$('#taskFilter').addEventListener('change',renderTasks);$('#taskSort').addEventListener('change',renderTasks);
+$('#prevPeriod').addEventListener('click',()=>{if(view==='month')cursor.setMonth(cursor.getMonth()-1);else cursor.setDate(cursor.getDate()-7);renderCalendar();});
+$('#nextPeriod').addEventListener('click',()=>{if(view==='month')cursor.setMonth(cursor.getMonth()+1);else cursor.setDate(cursor.getDate()+7);renderCalendar();});
+$('#todayBtn').addEventListener('click',()=>{cursor=new Date();selectedDate=todayISO();renderCalendar();});
+$$('.segmented button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;renderCalendar();}));
+$('#addEventBtn').addEventListener('click',()=>openEventEditor(null,selectedDate));
+$('#closeModal').addEventListener('click',closeModal);$('#cancelModal').addEventListener('click',closeModal);$('#deleteRecord').addEventListener('click',deleteCurrent);
+$('#modalBackdrop').addEventListener('click',e=>{if(e.target===$('#modalBackdrop'))closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key==='Enter'&&e.target.matches('.day')){selectedDate=e.target.dataset.selectDate;renderCalendar();}});
+$('#editorFields').addEventListener('change',e=>{if(e.target.id==='f_allDay')toggleAllDay();});
+
+$('#editorForm').addEventListener('submit',e=>{
+ e.preventDefault();const fd=new FormData(e.currentTarget),v=Object.fromEntries(fd.entries());
+ if(!String(v.title||'').trim()){notify('Informe um título.');return;}
+ if(editing.type==='task'){
+  const old=data.tasks.find(t=>t.id===editing.id);saveTask({id:editing.id||uid(),title:v.title.trim(),description:(v.description||'').trim(),date:v.date||'',time:v.time||'',priority:v.priority||'medium',done:v.done==='done',createdAt:old?.createdAt||Date.now()});closeModal();
+ }else{
+  if(v.endDate<v.startDate){notify('A data de término deve ser igual ou posterior à data de início.');return;}
+  const allDay=$('#f_allDay').checked,startTime=v.startTime||'00:00',endTime=v.endTime||startTime;
+  if(!allDay&&v.endDate===v.startDate&&endTime<startTime){notify('O horário de término deve ser posterior ao início.');return;}
+  saveEvent({id:editing.id||uid(),title:v.title.trim(),description:(v.description||'').trim(),startDate:v.startDate,endDate:v.endDate,startTime,endTime,category:v.category||'Pessoal',color:v.color||'#106B87',allDay});selectedDate=v.startDate;cursor=parseLocal(v.startDate);closeModal();renderAll();
+ }
+});
+
+document.addEventListener('click',e=>{
+ const check=e.target.closest('[data-check-task]');if(check){const t=data.tasks.find(x=>x.id===check.dataset.checkTask);if(t){t.done=check.checked;persist();renderAll();notify(t.done?'Tarefa concluída.':'Tarefa reaberta.');}return;}
+ const editT=e.target.closest('[data-edit-task]');if(editT){const t=data.tasks.find(x=>x.id===editT.dataset.editTask);if(t)openTaskEditor(t);return;}
+ const editE=e.target.closest('[data-edit-event]');if(editE){const ev=data.events.find(x=>x.id===editE.dataset.editEvent);if(ev)openEventEditor(ev);return;}
+ const day=e.target.closest('[data-select-date]');if(day){selectedDate=day.dataset.selectDate;cursor=parseLocal(selectedDate);renderCalendar();return;}
+ const slot=e.target.closest('[data-week-slot]');if(slot){const [date,time]=slot.dataset.weekSlot.split('|');selectedDate=date;openEventEditor(null,date,time);}
+});
+
+$('#f_allDay')?.addEventListener('change',toggleAllDay);
+renderAll();
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
+</script>
+</body>
+</html>
